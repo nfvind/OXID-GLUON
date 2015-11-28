@@ -32,7 +32,7 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
+          <li><a id="test" data-item="4A7A090A-D038-4715-80BA-9B5D34B84CCE" href="#">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
         <h3 class="text-muted">OXID GLUON</h3>
@@ -61,7 +61,7 @@
 
         </div>
       </div>
-
+      <div id="fakelake"></div>
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
       </div>
@@ -90,16 +90,30 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
 
-
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
-    <script src="scripts/OXID/Oxid.js"></script>
+    <script src="scripts/OXID/Oxid.Gluon.js"></script>
     <script src="scripts/OXID/Oxid.Core.js"></script>
+    <script src="scripts/OXID/Oxid.Apom.Controllers.js"></script>
     <script src="scripts/OXID/Oxid.Apom.js"></script>
     <!-- endbuild -->
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
+      var btnModel = new OXID.APOM.Models.GenericButtonModel("Accept","btn-accept","#",{'data-itemId':'{4A7A090A-D038-4715-80BA-9B5D34B84CCE}'});
+      var btnController = new OXID.APOM.Controllers.buttonController();
+      var btnView = new OXID.APOM.Views.ButtonView(btnModel,btnController);
+      $(document).ready(function () {
+
+   var clickEvent = function (event) {
+     var result = 4+4;
+     console.log($(this).attr('data-item'));
+     return function () {
+
+       return result;
+     }
+   };
+   $('#test').on('click',{itemId:'ass'},clickEvent);
+ });
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
       e=o.createElement(i);r=o.getElementsByTagName(i)[0];

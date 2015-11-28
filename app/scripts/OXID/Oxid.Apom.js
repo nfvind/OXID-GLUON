@@ -4,7 +4,9 @@
 OXID.APOM = OXID.APOM || {};
 (function ($, module) {
   var _apom = module.APOM;
-  _apom.Models.apomModel = function (sign, headline, body, buttons) {
+  var _models = module.APOM.Models;
+  var _views = module.APOM.Views;
+  _models.apomModel = function (sign, headline, body, buttons) {
     var self = this;
     var defaults = {
       sign:sign || 'default.png',
@@ -23,15 +25,36 @@ OXID.APOM = OXID.APOM || {};
     self.changeBody = function (body) {
       defaults.body = body;
     };
-    return self;
+    //return self; // uneeded!
   };
-  _apom.Models.GenericButton = function (buttonText, buttonId) {
+  _models.GenericButtonModel = function (buttonText,buttonId, btnLink, btnAttr) {
     var self = this;
     var defaults = {
       buttonId:buttonId,
-      buttonTxt:buttonText
+      buttonTxt:buttonText,
+      attributes: btnAttr || {},
+      link: btnLink || '#'
     };
     self.defaults = defaults;
-    return self;
+    //return self; // uneeded!
   };
+  _views.obj = {b:'se'};
+  _views.ButtonView = function (btnModel, btnController) {
+    var self = this;
+    self.button = $('<a href=""></a>');
+    var btn = self.button;
+    var attrs = btnModel.defaults.attributes || {};
+    if(attrs.length !== 0){
+    for(var key in attrs){
+      if(attrs.hasOwnProperty(key)){
+        btn.attr(key, attrs[key]);
+      }
+    }
+    }
+    btn.attr('href',btnModel.defaults.link);
+    btn.attr('id',btnModel.defaults.buttonId);
+    btn.html(btnModel.defaults.buttonTxt);
+    btn.on('click',{model:btnModel.defaults}, btnController.eventHandler);
+    $('#fakelake').append(btn);
+  }
 })(jQuery, OXID);
