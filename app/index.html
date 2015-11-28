@@ -100,8 +100,7 @@
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       var btnModel = new OXID.APOM.Models.GenericButtonModel("Accept","btn-accept","#",{'data-itemId':'{4A7A090A-D038-4715-80BA-9B5D34B84CCE}'});
-      var btnController = new OXID.APOM.Controllers.buttonController();
-      var btnView = new OXID.APOM.Views.ButtonView(btnModel,btnController);
+      var btnView = new OXID.APOM.Views.ButtonView(btnModel,new OXID.APOM.Controllers.buttonController());
       $(document).ready(function () {
 
    var clickEvent = function (event) {

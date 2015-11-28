@@ -39,6 +39,22 @@ OXID.APOM = OXID.APOM || {};
     //return self; // uneeded!
   };
   _views.obj = {b:'se'};
+  _views.ApomView = function (apomModel, apomController) {
+    var self = this;
+    var modalContainer = $('<div></div>');
+    var sign = $('<div class="gluon-sign"></div>');
+    var textContainer = $('<div class="gluon"></div>');
+    var buttonContainer = $('<div class="gluon-buttons"></div>');
+    var headline = $('<span class="emphasized-text"></span>');
+    var bodytext = $('<span class="gluon-text"></span>');
+    headline.html(apomModel.defaults.headline);
+    bodytext.html(apomModel.defaults.body);
+    textContainer.append(bodytext);
+    textContainer.append(headline);
+
+
+    modalContainer.appendChild(textContainer);
+  };
   _views.ButtonView = function (btnModel, btnController) {
     var self = this;
     self.button = $('<a href=""></a>');
