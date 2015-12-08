@@ -6,7 +6,8 @@ OXID.APOM = OXID.APOM || {};
   var _apom = module.APOM;
   var _models = module.APOM.Models;
   var _views = module.APOM.Views;
-  _models.apomModel = function (sign, headline, body, buttons) {
+  var _controllers = module.APOM.Controllers;
+  _models.ApomModel = function (sign, headline, body, buttons) {
     var self = this;
     var defaults = {
       sign:sign || 'default.png',
@@ -38,11 +39,13 @@ OXID.APOM = OXID.APOM || {};
     self.defaults = defaults;
     //return self; // uneeded!
   };
-  _views.obj = {b:'se'};
   _views.ApomView = function (apomModel, apomController) {
     var self = this;
-    var modalContainer = $('<div></div>');
+    var modalContainer = $('<div id="gluon-modal"></div>');
     var sign = $('<div class="gluon-sign"></div>');
+    apomModel.changeSign("https://yt3.ggpht.com/-CTPhJpUxiWM/AAAAAAAAAAI/AAAAAAAAAAA/lBoB134FVSU/s900-c-k-no/photo.jpg");
+    var img = $('<img src="'+apomModel.defaults.sign+'" width="25" height="25" alt="lala"/>');
+    sign.append(img);
     var textContainer = $('<div class="gluon"></div>');
     var buttonContainer = $('<div class="gluon-buttons"></div>');
     var headline = $('<span class="emphasized-text"></span>');
@@ -51,9 +54,19 @@ OXID.APOM = OXID.APOM || {};
     bodytext.html(apomModel.defaults.body);
     textContainer.append(bodytext);
     textContainer.append(headline);
-
-
-    modalContainer.appendChild(textContainer);
+    var _btns = apomModel.defaults.buttons;
+    var btnCtrl = new _controllers.buttonController();
+    for(var i = 0; _btns.length > i; i+=1){
+     var btnModel = _btns[i];
+      var btnView = new _views.ButtonView(btnModel, btnCtrl);
+      buttonContainer.append(btnView.button);
+      // Don't know if this is the correct way?! Why have variable?
+    }
+    modalContainer.on('click',apomController.eventHandler);
+    modalContainer.append(sign);
+    modalContainer.append(textContainer);
+    modalContainer.append(buttonContainer);
+    self.modal = modalContainer;
   };
   _views.ButtonView = function (btnModel, btnController) {
     var self = this;
@@ -71,6 +84,5 @@ OXID.APOM = OXID.APOM || {};
     btn.attr('id',btnModel.defaults.buttonId);
     btn.html(btnModel.defaults.buttonTxt);
     btn.on('click',{model:btnModel.defaults}, btnController.eventHandler);
-    $('#fakelake').append(btn);
   }
 })(jQuery, OXID);

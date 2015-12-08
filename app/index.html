@@ -100,9 +100,12 @@
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       var btnModel = new OXID.APOM.Models.GenericButtonModel("Accept","btn-accept","#",{'data-itemId':'{4A7A090A-D038-4715-80BA-9B5D34B84CCE}'});
-      var btnView = new OXID.APOM.Views.ButtonView(btnModel,new OXID.APOM.Controllers.buttonController());
+      btns = [];
+      btns.push(btnModel);
+      var modal = new OXID.APOM.Models.ApomModel('default.png',"MyFirstModal","Bla bla bla",btns);
+      var modalView = new OXID.APOM.Views.ApomView(modal,new OXID.APOM.Controllers.ApomController());
       $(document).ready(function () {
-
+        $('#fakelake').append(modalView.modal);
    var clickEvent = function (event) {
      var result = 4+4;
      console.log($(this).attr('data-item'));
@@ -113,12 +116,7 @@
    };
    $('#test').on('click',{itemId:'ass'},clickEvent);
  });
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='https://www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
+
     </script>
   </body>
 </html>
