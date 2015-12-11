@@ -102,9 +102,12 @@
       var btnModel = new OXID.APOM.Models.GenericButtonModel("Accept","btn-accept","#",{'data-itemId':'{4A7A090A-D038-4715-80BA-9B5D34B84CCE}'});
       btns = [];
       btns.push(btnModel);
+      var helpers = OXID.CORE.Helpers();
       var modal = new OXID.APOM.Models.ApomModel('default.png',"MyFirstModal","Bla bla bla",btns);
       var modalView = new OXID.APOM.Views.ApomView(modal,new OXID.APOM.Controllers.ApomController());
       $(document).ready(function () {
+
+        helpers.init();
         $('#fakelake').append(modalView.modal);
    var clickEvent = function (event) {
      var result = 4+4;

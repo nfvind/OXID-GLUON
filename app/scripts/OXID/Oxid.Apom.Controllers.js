@@ -7,11 +7,11 @@
     var self = this;
     self.eventHandler = function(event){
       if(event.type === 'click'){
-        _clickEvent(event);
+        self._clickEvent(event);
       }
     };
-    var _clickEvent = function (event) {
-      console.log(event.data.model);
+    self._clickEvent = function (event) {
+      console.log("button controller");
     };
   };
   _ctrls.ApomController = function () {
